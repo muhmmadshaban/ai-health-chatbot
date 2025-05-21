@@ -7,6 +7,8 @@ from langchain_core.language_models import LLM
 from langchain_core.callbacks import CallbackManagerForLLMRun
 from typing import Optional, List, Any
 from huggingface_hub import InferenceClient
+from fastapi import FastAPI
+
 
 # Validate HF_TOKEN
 HF_TOKEN = os.environ.get("HF_TOKEN")
@@ -48,7 +50,7 @@ class HuggingFaceChat(LLM):
     def _llm_type(self) -> str:
         return "huggingface_chat"
 
-def load_llm(hugging_face_repo_id):
+def load_llm(hugging_face_repo_id=hugging_face_repo):
     try:
         # Fix 2: Use corrected HuggingFaceChat class
         llm = HuggingFaceChat(model=hugging_face_repo_id, token=HF_TOKEN)
@@ -100,7 +102,7 @@ except Exception as e:
 # Test the LLM
 try:
     llm = load_llm(hugging_face_repo)
-    response = qa_chain.invoke("What is skin cancer?")
+    response = qa_chain.invoke("Who is the best football player?")
     print("Response:", response["result"])
     print("Source Documents:", response["source_documents"])
 except Exception as e:
