@@ -19,7 +19,8 @@ hugging_face_repo = "google/gemma-2b-it"
 
 # Custom LLM class to use InferenceClient.chat_completion
 # Fix 1: Added client as an Optional field with default None to satisfy Pydantic
-# Why: Pydantic requires all fields to be declared and initialized for validation
+# Why:
+# requires all fields to be declared and initialized for validation
 class HuggingFaceChat(LLM):
     model: str
     token: str
